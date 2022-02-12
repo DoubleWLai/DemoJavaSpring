@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -26,15 +27,34 @@ public class FakeStudentDao implements StudentDao {
     }
 
     @Override
-    public int updateStudent(Student student) {
-        UUID id = student.getId();
-
+    public Optional<Student> selectStudentById(UUID id) {
         for (Student s : Database) {
             if (s.getId().equals(id)) {
-                s = student;
-                return 1;
+                return Optional.of(s);
             }
         }
-        return -1;
+        return Optional.empty();
+    }
+
+    @Override
+    public int updateStudent(Student student) {
+        Optional<Student> optionalStudent = selectStudentById(student.getId());
+        if (!optionalStudent.isPresent()) {
+            return -1;
+        }
+
+        int indexToUpdate = -1;
+        for (int i = 0; i < Database.size(); i++) {
+            if (student.getId().equals(Database.get(i).getId())) {
+                indexToUpdate = i;
+            }
+        }
+
+        if (indexToUpdate < 0) {
+            return -1;
+        }
+
+        Database.set(indexToUpdate, student);
+        return 1;
     }
 }
