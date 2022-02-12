@@ -9,6 +9,8 @@ public interface StudentDao {
 
     List<Student> selectAllStudents();
 
-    int insertStudent(UUID id, Student student); // there is not db here, if we have it, the UUID would be generated automatically
+    int insertStudent(Student student); // there is not db here, if we have it, the UUID would be generated automatically
+
+    int updateStudent(Student student);
 
 }

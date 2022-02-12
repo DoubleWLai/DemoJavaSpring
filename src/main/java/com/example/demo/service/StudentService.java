@@ -20,4 +20,12 @@ public class StudentService {
     public List<Student> getAllStudents() {
         return studentDao.selectAllStudents();
     }
+
+    public int addStudent(Student student) {
+        return studentDao.insertStudent(student);
+    }
+
+    public int updateStudent(Student student) {
+        return studentDao.updateStudent(student);
+    }
 }

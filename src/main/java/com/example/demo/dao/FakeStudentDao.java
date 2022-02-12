@@ -3,6 +3,7 @@ package com.example.demo.dao;
 import com.example.demo.model.Student;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,7 +19,22 @@ public class FakeStudentDao implements StudentDao {
     }
 
     @Override
-    public int insertStudent(UUID id, Student student) {
-        return 0;
+    public int insertStudent(Student student) {
+        UUID id = UUID.randomUUID();
+        Database.add(new Student(id, student.getName()));
+        return 1;
+    }
+
+    @Override
+    public int updateStudent(Student student) {
+        UUID id = student.getId();
+
+        for (Student s : Database) {
+            if (s.getId().equals(id)) {
+                s = student;
+                return 1;
+            }
+        }
+        return -1;
     }
 }
