@@ -37,6 +37,28 @@ public class FakeStudentDao implements StudentDao {
     }
 
     @Override
+    public int deleteStudent(UUID id) {
+        Optional<Student> optionalStudent = selectStudentById(id);
+        if (!optionalStudent.isPresent()) {
+            return -1;
+        }
+
+        int indexToUpdate = -1;
+        for (int i = 0; i < Database.size(); i++) {
+            if (id.equals(Database.get(i).getId())) {
+                indexToUpdate = i;
+            }
+        }
+
+        if (indexToUpdate < 0) {
+            return -1;
+        }
+
+        Database.remove(indexToUpdate);
+        return 1;
+    }
+
+    @Override
     public int updateStudent(Student student) {
         Optional<Student> optionalStudent = selectStudentById(student.getId());
         if (!optionalStudent.isPresent()) {

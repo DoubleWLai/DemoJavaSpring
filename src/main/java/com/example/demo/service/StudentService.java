@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class StudentService {
@@ -27,5 +28,9 @@ public class StudentService {
 
     public int updateStudent(Student student) {
         return studentDao.updateStudent(student);
+    }
+
+    public int deleteStudent(UUID id) {
+        return studentDao.deleteStudent(id);
     }
 }
