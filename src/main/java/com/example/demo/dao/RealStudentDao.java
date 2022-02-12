@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
+@Repository("dao2")
 public class RealStudentDao implements StudentDao {
 
     private static List<Student> Database = new ArrayList<>();
