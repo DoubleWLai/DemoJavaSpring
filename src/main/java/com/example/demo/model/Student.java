@@ -1,19 +1,22 @@
 package com.example.demo.model;
 
-import java.util.UUID;
+import org.springframework.data.annotation.Id;
 
 public class Student {
 
-    private UUID id;
+    @Id
+    private String id;
 
     private String name;
 
-    public Student(UUID id, String name) {
-        this.id = id;
+    public Student() {
+    }
+
+    public Student(String name) {
         this.name = name;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 

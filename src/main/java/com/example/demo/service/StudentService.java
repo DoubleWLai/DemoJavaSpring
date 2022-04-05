@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.StudentDao;
+import com.example.demo.dao.StudentRepository;
 import com.example.demo.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,26 +12,42 @@ import java.util.UUID;
 @Service
 public class StudentService {
 
-    private StudentDao studentDao;
+    private StudentRepository studentRepository;
 
     @Autowired
-    public StudentService(@Qualifier("dao1") StudentDao studentDao) {
-        this.studentDao = studentDao;
-    }
-
-    public List<Student> getAllStudents() {
-        return studentDao.selectAllStudents();
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     public int addStudent(Student student) {
-        return studentDao.insertStudent(student);
+        studentRepository.save(student);
+        return 1;
     }
 
-    public int updateStudent(Student student) {
-        return studentDao.updateStudent(student);
+    public Student getStudent(String name) {
+        return studentRepository.findByName(name);
     }
 
-    public int deleteStudent(UUID id) {
-        return studentDao.deleteStudent(id);
-    }
+//    private StudentDao studentDao;
+//
+//    @Autowired
+//    public StudentService(@Qualifier("dao1") StudentDao studentDao) {
+//        this.studentDao = studentDao;
+//    }
+//
+//    public List<Student> getAllStudents() {
+//        return studentDao.selectAllStudents();
+//    }
+//
+//    public int addStudent(Student student) {
+//        return studentDao.insertStudent(student);
+//    }
+//
+//    public int updateStudent(Student student) {
+//        return studentDao.updateStudent(student);
+//    }
+//
+//    public int deleteStudent(UUID id) {
+//        return studentDao.deleteStudent(id);
+//    }
 }
